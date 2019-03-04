@@ -1,0 +1,28 @@
+<!--pages/member/member.wxml-->
+<!-- background-color:rgba(256,256,256,0.5); -->
+<view style='width:100%;height:120rpx;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding-top:30rpx;background-color:rgba(256,256,256,0.5);'>
+  <view catchtap='back_to_fishot' style='font-size:40rpx;color:#333333;margin-left:30rpx;'>Fi-Story成员</view>
+</view> 
+<view style='width:100%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;margin-top:30rpx;'>
+  <view style='font-size:36rpx;color:#333333;width:90%;height:60rpx;box-sizing:border-box;text-align:left;border-bottom:1px #eeeeee solid;line-height:60rpx;'>群主</view>
+  <view style='width:100%;display:flex;flex-direction:row;justify-content:flex-start;align-items:flex-start;height:275rpx;'>
+    <view style='width:33%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;margin-top:30rpx;'>
+      <image style='width:150rpx;height:150rpx;border-radius:75rpx;'  src="{{member.portrait}}"></image>
+      <view  style='font-size:36rpx;color:#333333;'>{{member.username}}</view>
+    </view>
+    <button id='album-menber' open-type='share' style='margin:0;padding:0;width:33%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;margin-top:30rpx;'>
+      <image style='width:150rpx;height:150rpx;border-radius:75rpx;' src="../fishot/img/add_member.png"></image>
+    </button>
+    <button style='margin:0;padding:0;width:33%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;margin-top:30rpx;'>
+      <image style='width:150rpx;height:150rpx;border-radius:75rpx;' src="../fishot/img/remove_member.png"></image>
+    </button>
+  </view>
+  <view style='font-size:36rpx;color:#333333;width:90%;height:60rpx;box-sizing:border-box;text-align:left;border-bottom:1px #eeeeee solid;line-height:60rpx;margin-top:20rpx;'>群成员</view>
+  <view style='width:100%;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;'>
+    <view wx:for='{{member.member}}' style='width:33%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;margin-top:30rpx;flex-wrap: wrap;'>
+      <image style='width:150rpx;height:150rpx;border-radius:75rpx;' src="{{item.portrait}}"></image>
+      <view  style='font-size:36rpx;color:#333333;'>{{item.username}}</view>
+    </view>
+    
+  </view>
+</view>

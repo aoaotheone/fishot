@@ -1,0 +1,26 @@
+<!--pages/create_album/create_album.wxml-->
+<view  wx:if='{{!chosing_bg}}' style='width:100%;height:100rpx;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;padding-top:30rpx;background-color:rgba(256,256,256,0.5);z-index:1000;'>
+  <view catchtap='back_to_index' style='font-size:40rpx;color:#333333;margin-left:30rpx;'>Fi-Story</view>
+</view> 
+<view wx:if='{{!chosing_bg}}'  class='container' style='position:relative;margin:0;padding:0;'>
+    <!--相册封面  -->
+    <image catchtap='change_cover' mode='aspectFill' id='fi-story-filter' src='{{pic_bg_url?pic_bg_url:pic_bg_default}}'></image>
+    <view catchtap='change_cover' class='change-pic-bt'>点击更换相册封面</view>
+    <view style='width:100%;height:88rpx;border:none;line-height:88rpx;box-sizing:border-box;padding:0 30rpx;font-size:36rpx;margin-top:20rpx;'>请为相册起个名吧</view>
+    <input bindinput='get_name' style='width:100%;height:88rpx;border:none;line-height:88rpx;box-sizing:border-box;padding:0 60rpx;font-size:30rpx;' type='text' placeholder='请输入你的Fi-Story名称' value='{{album_name}}'></input>
+    <view style='width:100%;height:88rpx;border:none;line-height:88rpx;box-sizing:border-box;padding:0 30rpx;font-size:36rpx;margin-top:20rpx;'>相册描述</view>
+    <textarea bindinput='get_state' style='width:100%;height:250rpx;border:none;box-sizing:border-box;padding:0 60rpx;font-size:30rpx;' placeholder='我们一起灵魂有趣而不安分' value='{{album_state}}'></textarea>
+    <view style='width:100%;height:110rpx;display:flex;flex-direction:row;justify-content:space-between;align-items:center;'>
+      <view style='width:50%;height:88rpx;border:none;line-height:88rpx;box-sizing:border-box;padding:0 30rpx;font-size:36rpx;'>设为私密相册</view>
+      <view catchtap='set_private' style='width:90rpx;height:50rpx;border-radius:26rpx;border:none;margin:0;padding:0;background-color:{{is_private?"#8cd1f4":"#a1a1a1"}};margin-right:30rpx;position:relative;'>
+        <view style='width:40rpx;height:40rpx;border-radius:20rpx;border:none;margin:0;padding:0;background-color:#FFFFFF;position:absolute;top:5rpx;right:{{is_private?4:46}}rpx;transition:right 200ms;'></view>
+      </view>
+    </view>
+    <view hover-class='button-hovered' class='button-hover' catchtap='create_album' style='width:100%;heigth:90rpx;line-height:90rpx;text-align:center;font-size:36rpx;color:#ffffff;border:none;margin:0;padding:0;position:fixed;bottom:0;'>下一步</view>
+</view>
+
+ <canvas wx:if='{{chosing_bg}}' id='cover-preview' bindtouchstart='canvas_start' bindtouchmove='canvas_move' bindtouchend='canvas_end' disable-scroll='true' canvas-id='cover-preview'>
+    <cover-view catchtap='upload_bg' id='croper-sure'>确定</cover-view> 
+    <cover-view catchtap='cancel_croper' id='croper-cancel'>取消</cover-view>
+    <cover-view id='croper'></cover-view>
+ </canvas> 

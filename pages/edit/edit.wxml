@@ -1,0 +1,30 @@
+<!--pages/edit/edit.wxml-->
+  <view class='container'>
+        <view class='edit-album-text-container'>
+              <!-- <image class='back-icon' src='img/back.png'></image> -->
+              <view bindtap='back_to_fistory' class='edit-album-text'>编辑</view>
+        </view>
+        <view class='chose-pic-container'>
+            <image bindtap='preview_pic' class='chosed-pic' src="{{chosed_pic?chosed_pic:default_chose_pic}}" mode='aspectFill'></image>
+            <image wx:if='{{chosed_pic}}' bindtap='clear_chosed_pic' src='../fishot/img/edit/cancel.png' style='width:50rpx;height:50rpx;position:absolute;top:10rpx;right:10rpx;z-index:100;background-color:rgba(0,0,0,0.5);border-radius:25rpx;'></image>
+            <image bindtap='chose_pic' wx:if='{{!chosed_pic}}' class='chose-pic-bt' src='../fishot/img/edit/add.png'></image>
+            <text wx:if='{{!chosed_pic}}' class='chose-pic-text'>点击添加照片</text>
+        </view>
+        <view class='edit-info-container'>
+            <view bindtap='set_position' class='edit-position-container'>
+                <image class='edit-position-icon' src='../fishot/img/edit/position.png'></image>
+                <text class='edit-position-text'>{{position_text?position_text:"拍摄位置"}}</text>
+            </view>
+            <view class='edit-time-container'>
+                <text class='edit-time-text' style='margin-left:20rpx;'>时间</text>
+                <image bindtap='morning' class='edit-time-icon' src='{{time_selecteda}}'></image>
+                <text bindtap='morning' class='edit-time-text'>早</text>
+                <image bindtap='noom' class='edit-time-icon' src='{{time_selectedb}}'></image>
+                <text bindtap='noom' class='edit-time-text'>中</text>
+                <image bindtap='evening' class='edit-time-icon' src='{{time_selectedc}}'></image>
+                <text bindtap='evening' class='edit-time-text' style='margin-right:20rpx;'>晚</text>
+            </view>
+        </view>
+        <textarea bindinput='get_thinking' class='edit-words-text' placeholder='这一刻，你在想些什么?' placeholder-style='font-family:PingFang-SC-Medium;font-size:32rpx;' value='{{thinking}}'></textarea>
+        <image bindtap='upload_story' class='edit-upload-icon' src='../fishot/img/edit/upload.png'></image>
+    </view>

@@ -1,0 +1,35 @@
+<!--pages/dayTip/dayTip.wxml-->
+
+<cover-image src='./img/trade.png' style='width:240rpx;height:58rpx;position:absolute;top:121rpx;left:50rpx;z-index:500;'></cover-image>
+<cover-view style='width:240rpx;height:58rpx;position:absolute;top:135rpx;left:110rpx;color:#8cd1f4;font-size:26rpx;z-index:500;'>03.13 - {{diary[0].time}}</cover-view>
+
+<view style='width:100%;height:auto;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;position:relative;margin-top:100rpx;box-sizing:border-box;over-flow:hidden;'>
+<canvas binderror='canvas_err' style='width:100%;margin-top:20rpx;z-index:500;height:{{timebar_height}}px;position:absolute;left:0;' id='timebar' canvas-id='timebar1'></canvas>
+
+
+    <view wx:for="{{diary}}" wx:key="{{item.diary_time}}" class='container time1' >
+            <!--日签配图  -->
+            <cover-view style='width:86rpx;height:86rpx;position:absolute;top:{{rect_top[index]/screenTime - 40}}rpx;left:36rpx;color:white;font-size:30rpx;z-index:500;'>{{diary[index].time}}</cover-view>
+            <view style='width:70%;height:auto;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;position:relative;margin-top:30rpx;'>
+                <text style='font-family: Pingfang-SC-Heavy;color: #a1a1a1;font-size:28rpx;'>- {{item.diary_time}} -</text>
+                <view style='width:100%;position:relative;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;margin-top:30rpx;'>
+                    <image style='width:100%;' mode='widthFix' src='https://www.yiluzou.cn/Fishot/public/{{item.diary_url}}'></image>
+                    <text style='position:absolute;bottom:10rpx;font-family: Pingfang-SC-Medium;color: #ffffff;font-size:24rpx;'>@{{item.diary_user}}</text>
+                </view>
+            </view>
+            <!--日签佩文  -->
+            <view style='width:60%;height:auto;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;position:relative;margin-top:70rpx;'>
+                <view style='width:100%;height:auto;font-family: Pingfang-SC-Medium;color: #2f2f2f;font-size:30rpx;margin-bottom:80rpx;'>
+                    {{item.diary_text}}
+                </view>
+                <text style='position:absolute;bottom:10rpx;font-family: Pingfang-SC-Medium;color: #a1a1a1;font-size:24rpx;'>@{{item.diary_user}}</text>
+            </view>
+            <!--日签分享  -->
+            <view style='width:80%;height:80rpx;display:flex;flex-direction:row;justify-content:center;align-items:center;margin-top:20rpx;'>
+                <image style='width:100rpx;height:30rpx;' src='../index/images/fishot.png'></image>
+            </view>
+        </view>
+</view>
+
+<navigator style='position:fixed;top:0;left:0;width:100%;height:120rpx;box-sizing: border-box;z-index:1000;' open-type='navigateBack'><cover-view style='width:100%;height:120rpx;line-height:180rpx;font-family: Pingfang-SC-Medium;color: #2f2f2f;font-size:40rpx;background-color:#f7f7f7;z-index:1000;padding-left:30rpx; box-sizing: border-box;position:fixed;top:0;left:0;'>Fishot日签</cover-view></navigator>
+<cover-image src='./img/clock.png' style='width:42rpx;height:42rpx;position:absolute;top:128rpx;left:55rpx;z-index:1000;border-radius:21rpx;'></cover-image>

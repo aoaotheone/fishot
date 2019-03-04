@@ -1,0 +1,4 @@
+<!--pages/invite/invite.wxml-->
+<!-- <view class='container'>
+    <button bindtap='accept' style='width:300rpx;height:100rpx;background-color:#00a0e9;color:white;text-align:center;line-height:100rpx;font-size:50rpx;margin-top:500rpx;border-radius:50rpx;'>接受请求</button>
+</view> -->

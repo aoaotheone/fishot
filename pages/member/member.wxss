@@ -1,0 +1,9 @@
+/* pages/member/member.wxss */
+button::after{
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.button-hover{
+  background-color:rgba(47,47,47,0.8);
+}

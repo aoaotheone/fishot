@@ -1,0 +1,17 @@
+<!--pages/comment/comment.wxml-->
+<view style='width:100%;height:100%;position:absolute;top:0;'>
+<navigator open-type='navigateBack'><view style='height:60rpx;font-family: Pingfang-SC-Medium;color: #000000;font-size:40rpx;position:fixed;left:30rpx;top:0;width:100%;z-index:100;margin-top:60rpx;font-weight:500'>用户反馈</view></navigator>
+<view style='margin-top: 160rpx;margin-left:30rpx;'>
+    <view style='height:40rpx;font-family: Pingfang-SC-Medium;color: #2f2f2f;font-size:36rpx;width:100%;margin-bottom:90rpx;'>反馈类型</view>
+    <view style='display:flex;flex-direction:row;'>
+        <button bindtap='button1' class='{{button_color1}}' style='width:150rpx;height:80rpx;font-family: Pingfang-SC-Medium;font-size:32rpx;border-radius:10rpx;line-heigth:80rpx;margin:0;padding:0;margin-left:10rpx;'>产品建议</button>
+        <button bindtap='button2' class='{{button_color2}}' style='width:150rpx;height:80rpx;font-family: Pingfang-SC-Medium;font-size:32rpx;border-radius:10rpx;line-heigth:80rpx;margin:0;padding:0;margin-left:60rpx;'>功能异常</button>
+        <button bindtap='button3' class='{{button_color3}}' style='width:100rpx;height:80rpx;font-family: Pingfang-SC-Medium;font-size:32rpx;border-radius:10rpx;line-heigth:80rpx;margin:0;padding:0;margin-left:60rpx;'>其他</button>
+    </view>
+    <view style='font-family: Pingfang-SC-Medium;color: #2f2f2f;font-size:36rpx;width:100%;margin-top:90rpx;'>问题描述和意见</view>
+    <textarea style='font-family: Pingfang-SC-Medium;color: #999999;font-size:34rpx;width:95%;margin-top:70rpx;' placeholder='请您输入详细的问题描述和留下宝贵的意见' value='{{suggestion}}' bindinput='get_text'></textarea>
+    <view style='font-family: Pingfang-SC-Medium;color: #2f2f2f;font-size:36rpx;width:100%;margin-top:50rpx;'>联系方式</view>
+    <input style='font-family: Pingfang-SC-Medium;color: #999999;font-size:34rpx;width:95%;margin-top:70rpx;' placeholder='请填写您的联系方式（手机号，微信号等）' value='{{relation}}' bindinput='get_phone'></input>
+</view>
+<button bindtap='send' style='font-family: Pingfang-SC-Medium;color: #ffffff;font-size:36rpx;width:100%;background-color: #8cd1f4;height: 100rpx;position:fixed;bottom:0;left:0;border:none;margin:0;padding:0;border-radius:0'>发送</button>
+</view>

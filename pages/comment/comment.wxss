@@ -1,0 +1,9 @@
+/* pages/comment/comment.wxss */
+.button-color{
+  color: #2f2f2f;
+  border:1rpx #2f2f2f solid;
+}
+.button-color-selected{
+  color: #8cd1f4;
+  border:1rpx #8cd1f4 solid;
+}

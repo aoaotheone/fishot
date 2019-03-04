@@ -1,0 +1,137 @@
+/* pages/edit/edit.wxss */
+/*选择图片与书写所想  */
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+} 
+.edit-album-text-container{
+  width: 100%;
+  height: 40rpx;
+  margin-top: 60rpx;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.edit-album-text{
+  height: 40rpx;
+  font-size: 40rpx;
+  color: #000000;
+  margin-left: 20rpx;
+}
+.chose-pic-container{
+  width: 100%;
+  height: 500rpx;
+  position: relative;
+  /* background-color: white; */
+  margin-top: 30rpx;
+}
+.chosed-pic{
+  width: 100%;
+  height: 500rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+.chose-pic-bt{
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 170rpx;
+  left: 325rpx;
+  z-index: 10;
+}
+.chose-pic-text{
+  width: 100%;
+  height: 32rpx;
+  text-align: center;
+  line-height: 32rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Regular;
+  color: #ffffff;
+  position: absolute;
+  top: 300rpx;
+  left: 0;
+}
+.edit-info-container{
+  width: 100%;
+  height: 70rpx;
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.edit-position-container{
+  width: 200rpx;
+  height: 70rpx;
+  border-radius: 35rpx;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 30rpx;
+}
+.edit-position-icon{
+  width: 20rpx;
+  height: 28rpx;
+  margin-left: 30rpx;  
+}
+.edit-position-text{
+  font-size: 28rpx;
+  color: #888888;
+  font-family: PingFang-SC-Medium;
+  margin-right: 30rpx;  
+  width: 112rpx;  
+  overflow: hidden;  
+  display: block;  
+  text-overflow: ellipsis;  
+  white-space: nowrap; 
+}
+.edit-time-container{
+  width: 350rpx;
+  height: 70rpx;
+  border-radius: 35rpx;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 30rpx;  
+}
+.edit-time-text{
+  font-size: 28rpx;
+  color: #888888;
+  font-family: PingFang-SC-Medium
+}
+.edit-time-icon{
+  width: 20rpx;
+  height: 20rpx;
+  border: 1px #888888 solid;
+  border-radius: 12rpx;
+}
+.edit-words-text{
+  width: 100%;
+  font-family:PingFang-SC-Medium;
+  font-size:32rpx;
+  color:#2f2f2f;
+  margin: 50rpx 0;
+  padding: 0 50rpx;
+  line-height: 38rpx;
+  z-index: 10;
+  box-sizing: border-box;
+}
+.edit-upload-icon{
+  width: 120rpx;
+  height: 120rpx;
+  position: fixed;
+  bottom: 50rpx;
+  right: 60rpx;
+  z-index: 100;
+}

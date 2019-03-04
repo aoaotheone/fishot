@@ -1,0 +1,11 @@
+/* pages/dayTip/dayTip.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box
+}
+.time1{
+  margin-top:90rpx;
+  padding-left:50rpx;
+  box-sizing: border-box;
+}
