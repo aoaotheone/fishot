@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/invite/invite",
+    "pages/fishot/fishot",
+    "pages/logs/logs",
+    "pages/my_fishot/my_fishot",
+    "pages/comment/comment",
+    "pages/dayTip/dayTip",
+    "pages/banner/banner",
+    "pages/member/member",
+    "pages/preview/preview",
+    "pages/public_album/public_album",
+    "pages/create_album/create_album",
+    "pages/edit/edit"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f7f7f7",
+    "navigationBarTitleText": "Fishot",
+    "navigationBarTextStyle": "black",
+ 
+    "navigationStyle":"custom"
+  }
+}
