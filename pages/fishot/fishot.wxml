@@ -1,0 +1,169 @@
+<!--pages/fishot/fishot.wxml-->
+<!-- 绘图层 -->
+ <canvas wx:if='{{!hide_canvas&&!is_pre}}' id='cover-preview' bindtouchstart='canvas_start' bindtouchmove='canvas_move' bindtouchend='canvas_end' disable-scroll='true' canvas-id='cover-preview'>
+     <cover-view catchtap='upload_bg' id='croper-sure'>确定</cover-view> 
+    <cover-view catchtap='cancel_croper' id='croper-cancel'>取消</cover-view>
+    <cover-view id='croper'></cover-view>
+ </canvas> 
+
+
+<!-- 相册信息编辑覆盖层 -->
+<view class='editing-words-cover'  wx:if='{{editing}}'>
+    <view class='name-text'>相册名称</view>
+    <input placeholder-class='ph-color' type='text' class='pic-edit-name' bindinput='get_editing_name' placeholder='请输入相册名称' maxlength='10' value='{{pic_name != "Fi-story"?pic_name:""}}'></input>
+    <view class='name-text'>相册描述</view>
+    <textarea  placeholder-class='ph-color' type='text' class='pic-edit-describe' bindinput='get_editing_describe' placeholder='请输入相册描述' maxlength='50' value='{{pic_words != "我们灵魂有趣而不安分"?pic_words:""}}'></textarea>
+    <view class='submit-cancel-container'>
+        <view catchtap='me_save_words_cancel' class='edit-cancel'>取消</view>
+        <view catchtap='me_save_words_submit' class='edit-submit'>确认</view>
+    </view>
+</view>
+<!--位置填写  -->
+<view class='editing-words-cover0'  wx:if='{{position_editing&&!is_pre}}'>
+    <view class='name-text'>拍摄位置</view>
+    <input placeholder-class='ph-color' type='text' class='pic-edit-name' bindinput='get_editing_position' placeholder='请输入拍摄位置' value='{{position_text}}'></input>
+    
+    <view class='submit-cancel-container'>
+        <view catchtap='position_edit_cancel' class='edit-cancel'>取消</view>
+        <view catchtap='position_edit_sure' class='edit-submit'>确认</view>
+    </view>
+</view>
+
+<!--主容器  -->
+ <view wx:if='{{hide_canvas}}'> 
+    <!--编辑页面  -->
+    <edit_component bindback_to_fistory='back_to_fistory' bindpre_pic='preview_pic' bindclear_pic='clear_chosed_pic' bindchose_pic='chose_pic' bindset_position='set_position' bindmorning='morning' bindnoom='noom' bindevening='evening' bindget_thinking='get_thinking'  bindupload_story='upload_story'class='container' chosed_pic='{{chosed_pic}}' time_selecteda='{{time_selected1}}' time_selectedb='{{time_selected2}}' time_selectedc='{{time_selected3}}' thinking='{{thinking}}' wx:if='{{!hide_edit_pic&&!is_pre}}'></edit_component>
+
+
+
+    <!--相册页面  -->
+    <view class='container' wx:if='{{hide_edit_pic&&!is_pre}}'>
+        <!--相册封面  -->
+        <image id='fi-story-filter' src='{{pic_bg_url?pic_bg_url:pic_bg_default}}'></image>
+        <!--相册信息  -->
+        <view catchtap='change_cover' id='fi-story-container'>
+            <view class='fi-story-text'>
+                 <!-- <image class='back-icon' src='img/back.png'></image>  -->
+                <view catchtap='back_to_index' class='back-text'>Fi-story</view>
+            </view>
+            
+            <!-- <image class='me-info-img' src='{{userInfo.avatarUrl}}'></image> -->
+            <view catchtap='change_cover' class='change-pic-bt' wx:if='{{!pic_bg_url}}'>更换相册封面</view>
+
+            <view catchtap='fi_story_edit_words' class='fi-story-name' wx:if='{{!editing&&pic_bg_url}}'>{{pic_name?pic_name:old_name}}</view>
+            <text catchtap='fi_story_edit_words'  class='fi-story-words' wx:if='{{!editing&&pic_bg_url}}'>{{pic_words?pic_words:old_words}}</text>
+            <image catchtap='fi_story_edit_words' src='img/edit-bt.png' class='fi-story-edit' wx:if='{{!editing&&pic_bg_url}}'></image>
+
+
+            <!--小伙伴头像  -->
+            <view wx:if="{{show_edit}}" style='width:70rpx;height:50rpx;position:absolute;right:170rpx;bottom:96rpx;color:#ffffff;text-align:center;line-height:40rpx;font-size:26rpx;'>
+            编辑
+                <image style='width:70rpx;height:50rpx;position:absolute;right:0;bottom:0;' src='./img/tip.png'></image>
+            </view>
+            <view catchtap='default' wx:if="{{albums}}" style='width:100%;height:92rpx;background-color:rgba(0,0,0,0.4);display:flex;flex-direction:row;justify-content:flex-start;align-items:center;position:absolute;left:0;bottom:0;'>
+                <image catchtap='show_member' style='width:60rpx;height:60rpx;margin-left:16rpx;border-radius:30rpx' src='{{albums.member[0].portrait}}'></image>
+                <image catchtap='show_member' wx:if='{{albums.member.length>1}}' style='width:60rpx;height:60rpx;margin-left:16rpx;border-radius:30rpx' src='{{albums.member[1].portrait}}'></image>
+                <image catchtap='show_member' wx:if='{{albums.member.length>2}}' style='width:60rpx;height:60rpx;margin-left:16rpx;border-radius:30rpx' src='{{albums.member[2].portrait}}'></image>
+                <image catchtap='show_member' wx:if='{{albums.member.length>3}}' mode='aspectFit' style='width:60rpx;height:18rpx;margin-left:14rpx;' src='./img/more.png'></image>
+                <button id='invite-bt' style='width:146rpx;height:66rpx;border-radius:33rpx;background-color:#8cd1f4;text-align:center;line-height:66rpx;color:white;font-size:32rpx;margin:0;margin-left:14rpx;' open-type='share' >+邀请</button>
+                <image wx:if='{{edit_modle}}' catchtap='close_edit' style='width:50rpx;height:50rpx;position:absolute;right:182rpx;' src='./img/cancel.png'></image>
+                <image  wx:if='{{!edit_modle}}' catchtap='ask_for_edit' style='width:50rpx;height:50rpx;position:absolute;right:182rpx;border-radius:25rpx' src='./img/add.png'></image>
+                <image catchtap='share' style='width:50rpx;height:55rpx;position:absolute;right:96rpx;' src='./img/share.png'></image>
+                <image catchtap='delete_albums' style='width:45rpx;height:55rpx;position:absolute;right:16rpx;' src='./img/delete.png'></image>
+            </view>
+        </view>
+
+        <!--选择颜色1  -->
+        <view wx:if="{{albums&&edit_modle}}" id='color-bar'>
+            <text class='color-bar-text'>选择时间轴颜色</text>
+            <!-- <canvas id='the-id' bindtouchstart='get_color' class='color-bar-canvas' canvas-id='set_color'></canvas> -->
+            <!-- <web-view class='color-bar-canvas' src='https://www.yiluzou.cn/test/a.html'></web-view> -->
+            <view class='color-bar-canvas'>
+                <block wx:if='{{edit_modle}}' wx:for="{{color_selected}}" wx:key='{{index}}'>
+                    <button  catchtap="set_color{{index}}" class="color-circle color-code{{index}}">
+                        <!-- {{!item}} -->
+                        <image wx:if="{{item}}" src='img/selected.png' class="color-selected"></image>
+                    </button>
+                </block>
+                <block wx:if='{{!edit_modle}}' wx:for="{{color_selected}}" wx:key='{{index}}'>
+                    <button catchtap="edit_tips" class="color-circle color-code{{index}}">
+                        <!-- {{!item}} -->
+                        <image wx:if="{{item}}" src='img/selected.png' class="color-selected"></image>
+                    </button>
+                </block>
+                
+            </view>
+        </view>
+        <view wx:if="{{!albums}}" id='color-bar'>
+            <text class='color-bar-text'>选择时间轴颜色</text>
+            <!-- <canvas id='the-id' bindtouchstart='get_color' class='color-bar-canvas' canvas-id='set_color'></canvas> -->
+            <!-- <web-view class='color-bar-canvas' src='https://www.yiluzou.cn/test/a.html'></web-view> -->
+            <view class='color-bar-canvas'>
+                <block wx:for="{{color_selected}}" wx:key='{{index}}'>
+                    <button  catchtap="set_color{{index}}" class="color-circle color-code{{index}}">
+                        <!-- {{!item}} -->
+                        <image wx:if="{{item}}" src='img/selected.png' class="color-selected"></image>
+                    </button>
+                </block>
+            </view>
+        </view>
+
+        <!--相册内容  -->
+        <view id='pic-edit-container'>
+            <canvas canvas-id='timebar' id='timebar-canvas' style="width:100rpx;height:{{timeBar_high}}rpx;">
+            
+            </canvas>
+            <view class="pic-and-words">
+                <view class='create-time'>{{albums.publish_time}}</view>
+
+                <!--故事模块渲染  -->
+                <block wx:if="{{storys}}" wx:for="{{storys}}" wx:key="{{item.story_id}}">  
+                <view class='editing-pic'>
+                    <cover-image class='arc-icon' src="img/{{color}}/arc.png"></cover-image>
+                    <cover-image class='head-icon' src="{{item.portrait}}"></cover-image>
+                    <view bindtap='go_to_edit' data-rank='{{index}}' bindtouchstart='scroll_start' bindtouchmove='scrolling' bindtouchend='scroll_end'  class='pic-words-container'>
+                        <view style='width:900rpx;'>
+                            <view id='pic-container' style="margin-left:{{scroll_left[index]}}rpx" class='pic-container'>
+                                <image wx:if='{{item.photo_url}}' style='width:400rpx;height:320rpx;' mode='aspectFill' src='{{item.photo_url[0]||item.photo_url[1]||item.photo_url[2]||item.photo_url[3]}}'></image>
+                            </view>
+                            <view id='words-container'  class='words-container'>
+                                <view wx:if='{{item.story}}' style='width:400rpx;height:320rpx;font-family: Pingfang-SC-Medium;color: #2f2f2f;background-color:#f1f1f1;padding:20rpx 20rpx;font-size:28rpx;margin-left:50rpx;'>{{item.story}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view wx:if="{{edit_modle}}" class='add-pic-container' style='margin-bottom:30rpx;'>
+                    <cover-image class='insert-icon' src="img/{{color}}/insert.png"></cover-image>
+                    <cover-image bindtap='add_storys_test' data-story_index='{{index}}' class='add-icon' src="img/{{color}}/add.png"></cover-image>
+                    <view class='add-text'>可选随意位置添加图文</view>
+                </view>
+                </block>  
+
+                <block wx:if="{{!storys}}">
+                <view class='editing-pic'>
+                    <cover-image class='arc-icon' src="img/{{color}}/arc.png"></cover-image>
+                    <cover-image class='head-icon' src="{{userInfo.avatarUrl}}"></cover-image>
+                    <view bindtap='go_to_edit' data-rank='0' bindtouchstart='scroll_start' bindtouchmove='scrolling_default' bindtouchend='scroll_end'  class='pic-words-container'>
+                        <view style='width:900rpx;'>
+                            <view id='pic-container' style="margin-left:{{scroll_default_left}}rpx" class='pic-container'></view>
+                            <view id='words-container'  class='words-container'></view>
+                        </view>
+                    </view>
+                </view>
+                <view  wx:if="{{edit_modle}}" class='add-pic-container'  style='margin-bottom:30rpx;'>
+                    <cover-image class='insert-icon' src="img/{{color}}/insert.png"></cover-image>
+                    <cover-image bindtap='add_storys' class='add-icon' src="img/{{color}}/add.png"></cover-image>
+                    <view class='add-text'>可选随意位置添加图文</view>
+                </view>
+                </block>
+
+              
+            </view> 
+        </view>
+    </view>
+
+
+
+    <!--预览页面  -->
+    <pre_component bindoff_pre='pre_off' wx:if='{{is_pre}}' chosed_pic='{{chosed_pic}}' story='{{thinking}}' position_text='{{position_text}}' photo_time='{{photo_time}}' userInfo='{{userInfo}}'></pre_component>
+ </view> 

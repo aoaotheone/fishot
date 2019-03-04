@@ -1,0 +1,150 @@
+<!--index.wxml-->
+
+
+<!--图片裁剪  -->
+<!-- <image hidden='{{hide_canvas}}' id='cover-preview' mode='aspectFit' src='{{edit_url}}'></image> -->
+
+<!-- 主容器 -->
+<view wx:if='{{hide_canvas}}' class='main'>
+    <!-- 首页 -->
+    <view hidden='{{index_hide}}' id='index-page'>
+        <view class='fishot-text'>Fishot</view>
+
+        <!-- 搜索框 -->
+        <view class='search-container'>
+            <image class='search-icon' src='images/search.png'></image>
+            <!-- <icon size='18' class='clear-icon' type='clear'></icon> -->
+            <input placeholder-class='index-search-ph' class='search-input' type='text' placeholder='点击输入相册或个人名称搜索'></input>
+        </view> 
+        
+        <!-- 轮播图 -->
+        <swiper id='index-slide' indicator-dots="{{indicatorDots}}"  indicator-color='#e0e0e0' indicator-active-color='#fff'
+                autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{banner_diary.banner}}"  wx:key='{{item}}'>
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" />
+                    <!-- <navigator open-type='redirect' url='../banner/banner'><image src="{{item}}" class="slide-image" /></navigator> -->
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <!-- 每日一图 -->
+        <view class='container' style='  margin-bottom: 135rpx;'>
+            <!--日签文字  -->
+            <view style='width:90%;height:80rpx;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;position:relative;margin-top:30rpx;'>
+                <image style='width:55rpx;height:55rpx;' src='./images/day_tip.png'></image>
+                <text style='font-family: Pingfang-SC-Medium;color: #4f4f4f;font-size:34rpx;margin-left:20rpx;'>日签</text>
+                <button hover-class='button-hover' id='diary-share' open-type='share' style='width:70rpx;height:70rpx;background-color:rgba(247,247,247,1);border-radius:35rpx;display:flex;flex-direction:row;justify-content:center;align-items:center;position:absolute;right:80rpx;margin:0;padding:0;'>
+                    <image style='width:50rpx;height:50rpx;border:none;margin:0;' src='./images/share_tip.png'></image>
+                </button>
+      
+                <navigator style='width:70rpx;height:70rpx;display:flex;flex-direction:row;justify-content:center;align-items:center;position:absolute;right:0' open-type='navigate' url='../dayTip/dayTip'>
+                  <image style='width:50rpx;height:50rpx;' src='./images/all_day.png'></image>
+                </navigator>
+
+            </view>
+            <!--日签配图  -->
+            <view style='width:90%;height:auto;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;position:relative;margin-top:30rpx;'>
+                <text style='font-family: Pingfang-SC-Heavy;color: #a1a1a1;font-size:28rpx;'>- {{banner_diary.diary_time}} -</text>
+                <view style='width:100%;position:relative;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;margin-top:30rpx;'>
+                    
+                    <image style='width:100%;' mode='widthFix' src='{{banner_diary.diary_url}}'></image>
+                    <text style='position:absolute;bottom:10rpx;font-family: Pingfang-SC-Medium;color: #ffffff;font-size:24rpx;'>@{{banner_diary.diary_user_pic}}</text>
+                    <!-- <view style='width:120rpx;height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items:center;position:absolute;right:30rpx;bottom:30rpx;background-color:rgba(47,47,47,0.5);border-radius:30rpx;'>
+                        <image style='width:26rpx;height:24rpx;margin-right:6rpx;' mode='aspectFit' src='./images/love.png'></image>
+                        <text style='font-family: Pingfang-SC-Medium;color: #ffffff;font-size:24rpx;'>666</text>
+                    </view> -->
+                </view>
+            </view>
+            <!--日签佩文  -->
+            <view style='width:75%;height:auto;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;position:relative;margin-top:100rpx;'>
+                <view style='width:100%;height:auto;font-family: Pingfang-SC-Medium;color: #2f2f2f;font-size:30rpx;margin-bottom:80rpx;'>
+                    {{banner_diary.diary_text}}
+                </view>
+                <text style='position:absolute;bottom:10rpx;font-family: Pingfang-SC-Medium;color: #a1a1a1;font-size:24rpx;'>@{{banner_diary.diary_user}}
+</text>
+            </view>
+            <!--日签分享  -->
+            <view style='width:80%;height:80rpx;display:flex;flex-direction:row;justify-content:center;align-items:center;margin-top:70rpx;'>
+                <image style='width:120px;height:50rpx;' src='./images/fishot.png'></image>
+                
+            </view>
+        </view>
+    </view>
+
+    <!-- 我的页面 -->
+    <!-- <me_component userInfo='{{userInfo}}' wx:if='{{!me_hide}}' id='me-page'></me_component>     -->
+    <view wx:if='{{!me_hide}}' id='me-page'>
+        <view class='me-text' style='color:{{me_text_color}}'>我的</view>        
+
+        <!-- 相册信息编辑覆盖层 -->
+        <view class='editing-words-cover'  hidden='{{!editing}}'>
+            <view class='name-text'>个性签名</view>
+            <textarea placeholder-class='me-editing-ph' type='text' class='me-editing-words' bindinput='get_editing_words' placeholder='请输入相册描述' maxlength='50'></textarea>
+            <view class='submit-cancel-container'>
+                <view catchtap='me_save_words_cancel' class='edit-cancel'>取消</view>
+                <view catchtap='me_save_words_submit' class='edit-submit'>确认</view>
+            </view>
+    
+        </view>
+
+        <!-- 用户信息 -->
+        <view catchtap='change_cover' id='me-info-container' style='top:{{me_top}}rpx;z-index: {{z_index}};'>
+            <image id='me-info-filter' src='{{bg_url}}'></image>
+            <image catchtap='default' class='me-info-img' src='{{userInfo.avatarUrl}}'></image>
+            <view catchtap='default' class='me-info-name'>{{userInfo.nickName}}</view>
+            <view catchtap='default' style='width:80rpx;height:80rpx;background-color:rgba(0,0,0,0.5);z-index:1000;border-radius:50rpx;text-align:center;line-height:80rpx;'>
+                <navigator open-type='navigate' url='../comment/comment'><image style='width:50rpx;height:40rpx;z-index:1001;margin-top:20rpx;' src='./images/comment.png'></image></navigator>
+            </view>
+            <!-- <view catchtap='me_edit_words'  class='me-info-words' wx:if='{{me_words&&!editing}}'>{{me_words}}</view> -->
+            <!-- <image catchtap='me_edit_words' src='images/me-edit-img.png' class='me-edit-words' wx:if='{{!me_words&&!editing}}'></image> -->
+        </view>
+        <view id='picture-button-container' style='top:{{botton_top}}rpx;'>
+            <view catchtap='fi_story_click' class="pic-bt {{picture_selected?'pic-bt-selected':''}}">Fi-Story</view>
+            <view catchtap='my_pic_click' class="pic-bt {{!picture_selected?'pic-bt-selected':''}}">My-Pic</view>
+        </view>
+        <!-- 相册容器 -->
+        <view id='picture-container' style='margin-top:{{botton_top+200}}rpx;'>
+            
+            <block>
+                <view bindtap='album_detail_page' data-album-index='{{index}}' wx:if='{{!fi_story_hide}}' class='picture-items' wx:for="{{albums}}" wx:key="{{item.album_id}}">
+                <!--相册封面  -->
+                    <image class='items-face' src="{{item.background}}"></image>
+                     <view catchtap='secreting' data-secret='{{index}}' class='items-top-icon'>
+                        <image wx:if='{{item.state==0}}' style='width:30rpx;height:40rpx;'  src="images/secret.png"></image>                      
+                        <image wx:if='{{item.state==1}}' style='width:30rpx;height:40rpx;'  src="images/open.png"></image>                      
+                     </view> 
+                    <view class='items-info-container'>
+                        <text class='items-name'>{{item.album_name}}</text>
+                        <text class='items-time'>{{item.publish_time}}</text>
+                        <image class='items-group-icon' src="images/group.png"></image>
+                        <text class='items-group-num'>{{item.person_number}}</text>
+                        <image class='items-pic-icon' src="images/pic-num.png"></image>
+                        <text class='items-pic-num'>{{item.story_number}}</text>
+                    </view>
+                </view>
+            </block>
+            <view wx:if="{{!all_albums&&!fi_story_hide}}" class='picture-last'></view>
+            <view wx:if="{{fi_story_hide}}" class='picture-last'></view>
+        </view>
+    </view>
+
+
+    <!-- tabbar -->
+    <view id='tabbar'>
+        <image catchtap='jump_to_index' id='icon-index' src='{{index_img}}'></image>
+        <image catchtap='jump_to_pic' id='icon-create' src='images/create.png'></image>
+        <image catchtap='jump_to_me' id='icon-my-fishot' src='{{me_img}}'></image>
+    </view>
+
+
+
+</view>
+
+    <!-- 绘图层 -->
+ <canvas  style='height:{{hide_canvas?"0rpx;":"100%"}}' id='cover-preview' bindtouchstart='canvas_start' bindtouchmove='canvas_move' bindtouchend='canvas_end' disable-scroll='true' canvas-id='cover-preview'>
+    
+ </canvas> 
+ <cover-view disable-scroll='true' hidden='{{hide_canvas}}' catchtap='upload_bg' id='croper-sure'>确定</cover-view>
+ <cover-view disable-scroll='true' hidden='{{hide_canvas}}' catchtap='cancel_croper' id='croper-cancel'>取消</cover-view>
+ <cover-view disable-scroll='true' hidden='{{hide_canvas}}'  id='croper'></cover-view>

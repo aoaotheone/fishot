@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "pre_component": "../preview/preview",
+    "edit_component": "../edit/edit"
+  }
+}

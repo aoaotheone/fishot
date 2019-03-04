@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "me_component": "../my_fishot/my_fishot"
+  }
+}

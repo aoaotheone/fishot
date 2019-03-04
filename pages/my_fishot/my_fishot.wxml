@@ -1,0 +1,54 @@
+<!-- 我的页面 -->
+    <view class='me-page'>
+
+        
+
+        <!-- 相册信息编辑覆盖层 -->
+        <view class='editing-words-cover'  hidden='{{!editing}}'>
+            <view class='name-text'>个性签名</view>
+            <textarea placeholder-class='me-editing-ph' type='text' class='me-editing-words' bindinput='get_editing_words' placeholder='请输入相册描述' maxlength='50'></textarea>
+            <view class='submit-cancel-container'>
+                <view catchtap='me_save_words_cancel' class='edit-cancel'>取消</view>
+                <view catchtap='me_save_words_submit' class='edit-submit'>确认</view>
+            </view>
+    
+        </view>
+
+        <!-- 用户信息 -->
+        <view catchtap='change_cover' class='me-info-container'>
+        <image class='me-info-filter' src='{{bg_url}}'></image>
+            <view class='me-text'>我的</view>
+            <image catchtap='default' class='me-info-img' src='{{userInfo.avatarUrl}}'></image>
+            <view catchtap='default' class='me-info-name'>{{userInfo.nickName}}</view>
+            <view catchtap='default' style='width:80rpx;height:80rpx;background-color:rgba(0,0,0,0.5);z-index:1000;border-radius:50rpx;text-align:center;line-height:80rpx;'>
+                <navigator open-type='navigate' url='../comment/comment'><image style='width:50rpx;height:40rpx;z-index:1001;margin-top:20rpx;' src='../index/images/comment.png'></image></navigator>
+            </view>
+            <!-- <view catchtap='me_edit_words'  class='me-info-words' wx:if='{{me_words&&!editing}}'>{{me_words}}</view> -->
+            <!-- <image catchtap='me_edit_words' src='images/me-edit-img.png' class='me-edit-words' wx:if='{{!me_words&&!editing}}'></image> -->
+        </view>
+        <view class='picture-button-container'>
+            <view catchtap='fi_story_click' class="pic-bt {{picture_selected?'pic-bt-selected':''}}">Fi-Story</view>
+            <view catchtap='my_pic_click' class="pic-bt {{!picture_selected?'pic-bt-selected':''}}">My-Pic</view>
+        </view>
+        <!-- 相册容器 -->
+        <view class='picture-container'>
+            
+            <block>
+                <view bindtap='album_detail_page' data-album-index='{{index}}' wx:if='{{!fi_story_hide}}' class='picture-items' wx:for="{{albums}}" wx:key="{{item.album_id}}">
+                <!--相册封面  -->
+                    <image class='items-face' src="{{item.background}}"></image>
+                    <!-- <image class='items-top-icon'  src="images/open.png"></image> -->
+                    <view class='items-info-container'>
+                        <text class='items-name'>{{item.album_name}}</text>
+                        <text class='items-time'>{{item.publish_time}}</text>
+                        <image class='items-group-icon' src="../index/images/group.png"></image>
+                        <text class='items-group-num'>{{item.person_number}}</text>
+                        <image class='items-pic-icon' src="../index/images/pic-num.png"></image>
+                        <text class='items-pic-num'>{{item.story_number}}</text>
+                    </view>
+                </view>
+            </block>
+            <view wx:if="{{!all_albums&&!fi_story_hide}}" class='picture-last'></view>
+            <view wx:if="{{fi_story_hide}}" class='picture-last'></view>
+        </view>
+    </view>
